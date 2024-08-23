@@ -21,6 +21,21 @@ jobs:
     - name: Test
       run: go test -v ./...
 
+    - name: Sign
+      uses: azure/trusted-signing-action@v0.4.0
+      with:
+        azure-tenant-id: ${{ vars.AZURE_TENANT_ID }}
+        azure-client-id: ${{ vars.AZURE_CLIENT_ID }}
+        azure-client-secret: ${{ secrets.AZURE_CLIENT_SECRET }}
+        endpoint: ${{ vars.AZURE_ENDPOINT }}
+        trusted-signing-account-name: ${{ vars.AZURE_CODE_SIGNING_NAME }}
+        certificate-profile-name: ${{ vars/AZUER_CERT_PROFILE_NAME }}
+        files-folder: ${{ github.workspace }}
+        files-folder-filter: exe,dll
+        file-digest: SHA256
+        timestamp-rfc3161: http://timestamp.acs.microsoft.com
+        timestamp-digest: SHA256
+
     - name: List
       run: |
           echo "Looking at ${{ github.repository }}"
