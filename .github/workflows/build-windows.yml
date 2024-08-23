@@ -23,7 +23,7 @@ jobs:
 
     - name: Before signing
       run: |
-          echo "Looking at ${{ github.repository }}"
+          echo "Looking at ${{ github.repository }} before signing"
           tree /F
 
     - name: Sign
@@ -34,7 +34,7 @@ jobs:
         azure-client-secret: ${{ secrets.AZURE_CLIENT_SECRET }}
         endpoint: ${{ vars.AZURE_ENDPOINT }}
         trusted-signing-account-name: ${{ vars.AZURE_CODE_SIGNING_NAME }}
-        certificate-profile-name: ${{ vars/AZUER_CERT_PROFILE_NAME }}
+        certificate-profile-name: ${{ vars.AZURE_CERT_PROFILE_NAME }}
         files-folder: ${{ github.workspace }}
         files-folder-filter: exe,dll
         file-digest: SHA256
@@ -43,6 +43,6 @@ jobs:
 
     - name: After signing
       run: |
-          echo "Looking at ${{ github.repository }}"
+          echo "Looking at ${{ github.repository }} after signing"
           tree /F
     
