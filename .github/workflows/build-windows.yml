@@ -21,6 +21,11 @@ jobs:
     - name: Test
       run: go test -v ./...
 
+    - name: Before signing
+      run: |
+          echo "Looking at ${{ github.repository }}"
+          tree /F
+
     - name: Sign
       uses: azure/trusted-signing-action@v0.4.0
       with:
@@ -36,7 +41,7 @@ jobs:
         timestamp-rfc3161: http://timestamp.acs.microsoft.com
         timestamp-digest: SHA256
 
-    - name: List
+    - name: After signing
       run: |
           echo "Looking at ${{ github.repository }}"
           tree /F
