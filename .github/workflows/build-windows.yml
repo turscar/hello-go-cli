@@ -46,3 +46,9 @@ jobs:
           echo "Looking at ${{ github.repository }} after signing"
           tree /F
     
+    - name: Publish
+      uses: softprops/action-gh-release@v2
+      with:
+        files: |
+            hello-go-cli.exe
+            
