@@ -1,0 +1,27 @@
+name: Build macOS
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: macos-latest
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Set up Go
+      uses: actions/setup-go@v5
+      with:
+        go-version: '>=1.22'
+
+    - name: Build
+      run: go build -v ./...
+
+    - name: Test
+      run: go test -v ./...
+
+    - name: List
+      run: |
+          echo "Looking at ${{ github.repository }}"
+          find . -print | sed -e 's;[^/]*/;|____;g;s;____|; |;g'
+          
